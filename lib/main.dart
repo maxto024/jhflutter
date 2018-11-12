@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterJhipster/ui/login_page.dart';
+import 'package:jhipsterFlutter/ui/login_page.dart';
 
 void main() => runApp(new MyApp());
 
