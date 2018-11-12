@@ -8,18 +8,8 @@
 
 ## Installation
 
-First, install [Yeoman](http://yeoman.io) and generator-jhipster-flutter using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)) since this generator is based on flutter  (we assume you have pre-installed  if not follow this [ install flutter.io](https://flutter.io/docs/get-started/install)) .
+First, this app is based on jhipster backend (we assume you have  jhipster backend  [jhipster](https://www.jhipster.tech/)) also (we assume you have pre-installed  if not follow this [ install flutter.io](https://flutter.io/docs/get-started/install)) .
 
-```bash
-npm install -g yo
-npm install -g generator-jhipster-flutter
-```
-
-Then generate your new project:
-
-```bash
-yo jhipster-flutter
-```
 
 ## Getting To Know Generator jhipster Flutter 
 
