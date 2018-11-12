@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:jhipsterFlutter/style/theme.dart' as Theme;
-import 'package:jhipsterFlutter/utils/bubble_indication_painter.dart';
+import 'package:jhflutter/style/theme.dart' as Theme;
+import 'package:jhflutter/utils/bubble_indication_painter.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
