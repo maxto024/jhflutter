@@ -10,10 +10,9 @@
 
 First, this app is based on jhipster backend (we assume you have  jhipster backend  [jhipster](https://www.jhipster.tech/)) also (we assume you have pre-installed  if not follow this [ install flutter.io](https://flutter.io/docs/get-started/install)) .
 
-
-## Getting To Know Generator jhipster Flutter 
-
- * 
+#Uplabs design        
+:-------------------------:
+![original-design](./github/login.png)  
 
 ## License
 
