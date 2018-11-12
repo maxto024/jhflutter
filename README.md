@@ -12,7 +12,7 @@ First, this app is based on jhipster backend (we assume you have  jhipster backe
 
 #Uplabs design        
 :-------------------------:
-![original-design](./github/login.png =250x250)  
+![original-design](./github/login.png){:height="50%" width="50%"}
 
 ## License
 
