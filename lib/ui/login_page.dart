@@ -170,6 +170,7 @@ class _LoginPageState extends State<LoginPage>
           children: <Widget>[
             Expanded(
               child: FlatButton(
+                key: Key("Existing"),
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onPressed: _onSignInButtonPress,
@@ -188,6 +189,7 @@ class _LoginPageState extends State<LoginPage>
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onPressed: _onSignUpButtonPress,
+                key: Key("New"),
                 child: Text(
                   "New",
                   style: TextStyle(
@@ -612,6 +614,7 @@ class _LoginPageState extends State<LoginPage>
                       tileMode: TileMode.clamp),
                 ),
                 child: MaterialButton(
+
                     highlightColor: Colors.transparent,
                     splashColor: Theme.Colors.loginGradientEnd,
                     //shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
