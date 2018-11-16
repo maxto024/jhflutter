@@ -7,10 +7,13 @@ import 'package:jhflutter/model/model.dart';
 import 'package:jhflutter/redux/reducers.dart';
 import 'package:jhflutter/redux/middleware.dart';
 
+import 'package:redux_dev_tools/redux_dev_tools.dart';
+import 'package:flutter_redux_dev_tools/flutter_redux_dev_tools.dart';
+
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
-  final store = new Store<AppState>(
+  final DevToolsStore<AppState> store = DevToolsStore<AppState>(
     appStateReducer,
     initialState: AppState.initialState(),
     middleware: appStateMiddleware(),

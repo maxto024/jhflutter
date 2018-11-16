@@ -4,9 +4,11 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:jhflutter/model/model.dart';
 import 'package:jhflutter/ui/buildLogin.dart';
 import 'package:jhflutter/utils/ViewModel.dart';
+import 'package:redux_dev_tools/redux_dev_tools.dart';
+import 'package:flutter_redux_dev_tools/flutter_redux_dev_tools.dart';
 
 class LoginPage extends StatefulWidget {
-  final Store<AppState> store;
+  final DevToolsStore<AppState> store;
   LoginPage(this.store);
 
   static String tag = 'login-page';
@@ -15,7 +17,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final Store<AppState> store;
+  final DevToolsStore<AppState> store;
   _LoginPageState(this.store);
 
   @override
@@ -29,20 +31,24 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
     return Scaffold(
-        backgroundColor: Colors.lightBlue,
-        body: StoreConnector<AppState, ViewModel>(
-          converter: (Store<AppState> store) => ViewModel.create(store),
-          builder: (BuildContext context, ViewModel viewModel) => Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    logo,
-                    BuildLogin(viewModel),
-                  ],
-                ),
+      backgroundColor: Colors.lightBlue,
+      body: StoreConnector<AppState, ViewModel>(
+        converter: (Store<AppState> store) => ViewModel.create(store),
+        builder: (BuildContext context, ViewModel viewModel) => Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  logo,
+                  BuildLogin(viewModel),
+                ],
               ),
-        ));
+            ),
+      ),
+      drawer: Container(
+        child: ReduxDevTools(store),
+      ),
+    );
   }
 }

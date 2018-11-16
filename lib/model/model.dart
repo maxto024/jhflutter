@@ -30,6 +30,11 @@ class AuthKey {
   AuthKey copyWith({String authKey}) {
     return AuthKey(authkey: authKey ?? this.authkey);
   }
+
+  AuthKey.fromJson(Map json) : authkey = json['id_token'];
+  Map toJson() => {
+        'authkey': authkey,
+      };
 }
 
 class AppState {
