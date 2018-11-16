@@ -57,11 +57,17 @@ flutter:
 
   assets:
       - assets/login_logo.png
+      - assets/logo.png
+      - assets/alucard.jpg
 
   fonts:
     - family: WorkSansSemiBold
       fonts:
         - asset: assets/fonts/Work_Sans/WorkSans-Semibold.ttf
+       
+    - family: Nunito
+      fonts:
+        - asset: assets/fonts/Nunito/Nunito.ttf
 
     - family: WorkSansBold
       fonts:

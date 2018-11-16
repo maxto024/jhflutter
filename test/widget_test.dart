@@ -9,7 +9,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:jhflutter/main.dart';
 
-
 void main() {
   testWidgets('TEST IN DEFAULT U SEE LOGIN', (WidgetTester tester) async {
     // Build our app and trigger a frame.
@@ -17,14 +16,5 @@ void main() {
 
     // Verify that our counter starts at 0.
     expect(find.text('LOGIN'), findsOneWidget);
-    expect(find.text('SIGN UP'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byKey(Key("New")));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('LOGIN'), findsNothing);
-    expect(find.text('SIGN UP'), findsOneWidget);
   });
 }

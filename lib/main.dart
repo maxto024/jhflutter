@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:jhflutter/ui/login_page.dart';
+import 'package:jhflutter/ui/home_page.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:jhflutter/model/model.dart';
 import 'package:jhflutter/redux/reducers.dart';
 import 'package:jhflutter/redux/middleware.dart';
-import 'package:redux_dev_tools/redux_dev_tools.dart';
 
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
   final store = new Store<AppState>(
     appStateReducer,
-        initialState: AppState.initialState(),
+    initialState: AppState.initialState(),
     middleware: appStateMiddleware(),
   );
   @override
@@ -25,9 +25,13 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
           ),
           home: StoreBuilder<AppState>(
-          builder: (BuildContext context, Store<AppState> store) =>
-              LoginPage(store),
+            builder: (BuildContext context, Store<AppState> store) =>
+                LoginPage(store),
           ),
+          routes: <String, WidgetBuilder>{
+            LoginPage.tag: (context) => LoginPage(store),
+            HomePage.tag: (context) => HomePage(),
+          },
         ));
   }
 }

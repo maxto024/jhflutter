@@ -11,6 +11,17 @@ class User {
         password: password ?? this.password,
         rememberMe: rememberMe ?? this.rememberMe);
   }
+
+  User.fromJson(Map json)
+      : username = json['username'],
+        password = json['password'],
+        rememberMe = json['password'];
+
+  Map toJson() => {
+        'username': username,
+        'password': password,
+        'rememberMe': rememberMe,
+      };
 }
 
 class AuthKey {
@@ -23,12 +34,14 @@ class AuthKey {
 
 class AppState {
   final User user;
-  final AuthKey  authKey;
+  final AuthKey authKey;
 
   const AppState({
     this.user,
     this.authKey,
   });
 
- factory  AppState.initialState() =>  AppState(user: User(username: '',password: '', rememberMe: false),authKey: AuthKey(authkey: ''));
+  factory AppState.initialState() => AppState(
+      user: User(username: '', password: '', rememberMe: false),
+      authKey: AuthKey(authkey: ''));
 }

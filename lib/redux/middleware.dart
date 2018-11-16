@@ -25,7 +25,8 @@ Middleware<AppState> _login(AppState state) {
   return (Store<AppState> store, action, NextDispatcher next) {
     next(action);
     print('war hayaaay bacaac');
-     print(store.state.user.password);
+    print(store.state.user.password);
+    loginApi(store.state);
     store.dispatch(LoginSuccessAction(AuthKey(authkey: 'wakas')));
   };
 }
@@ -40,16 +41,27 @@ Middleware<AppState> _logout(AppState state) {
 
 void saveToPrefs(AppState state) async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
- // var string = json.encode(state.toJson());
+  // var string = json.encode(state.toJson());
   //await preferences.setString('itemsState', string);
 }
 
-Future<AppState> loadFromPrefs() async {
-  SharedPreferences preferences = await SharedPreferences.getInstance();
-  var string = preferences.getString('itemsState');
-  if (string != null) {
-    Map map = json.decode(string);
-  //  return AppState.fromJson(map);
-  }
+Future<AppState> loginApi(AppState state) async {
+  // SharedPreferences preferences = await SharedPreferences.getInstance();
+  //var string = preferences.getString('itemsState');
+
+  var url = "https://somaliapp.com:8080/api/authenticate";
+  var body = json.encode(state.user.toJson());
+  print(body);
+  await http.post(Uri.encodeFull(url), body: body, headers: {
+    "Accept": "application/json",
+    "Content-Type": "application/json"
+  }).then((response) {
+    print("Response status: ${response.statusCode}");
+    print("Response body: ${response.body}");
+  });
+  // if (string != null) {
+  //   Map map = json.decode(string);
+  // //  return AppState.fromJson(map);
+  // }
   return AppState.initialState();
 }
