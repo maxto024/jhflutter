@@ -3,16 +3,25 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jhflutter/style/theme.dart' as Theme;
 import 'package:jhflutter/utils/bubble_indication_painter.dart';
-
+import 'package:redux/redux.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:jhflutter/model/model.dart';
+import 'package:jhflutter/redux/actions.dart';
+import 'package:redux_dev_tools/redux_dev_tools.dart';
+import 'package:flutter_redux_dev_tools/flutter_redux_dev_tools.dart';
 class LoginPage extends StatefulWidget {
-  LoginPage({Key key}) : super(key: key);
+      final Store<AppState> store;
+  LoginPage(this.store,{Key key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => new _LoginPageState();
+  _LoginPageState createState() => new _LoginPageState(store);
 }
 
 class _LoginPageState extends State<LoginPage>
     with SingleTickerProviderStateMixin {
+   final Store<AppState> store;
+   _LoginPageState(this.store);
+
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   final FocusNode myFocusNodeEmailLogin = FocusNode();
@@ -44,7 +53,12 @@ class _LoginPageState extends State<LoginPage>
   Widget build(BuildContext context) {
     return new Scaffold(
       key: _scaffoldKey,
-      body: NotificationListener<OverscrollIndicatorNotification>(
+      body:  StoreConnector<AppState, _ViewModel>(
+           converter: (Store<AppState> store) => _ViewModel.create(store),
+        
+          builder: (BuildContext context, _ViewModel viewModel) =>
+        
+          NotificationListener<OverscrollIndicatorNotification>(
         onNotification: (overscroll) {
           overscroll.disallowGlow();
         },
@@ -100,7 +114,7 @@ class _LoginPageState extends State<LoginPage>
                     children: <Widget>[
                       new ConstrainedBox(
                         constraints: const BoxConstraints.expand(),
-                        child: _buildSignIn(context),
+                        child: _buildSignIn(context,viewModel),
                       ),
                       new ConstrainedBox(
                         constraints: const BoxConstraints.expand(),
@@ -114,6 +128,9 @@ class _LoginPageState extends State<LoginPage>
           ),
         ),
       ),
+      
+    ),
+  
     );
   }
 
@@ -205,7 +222,7 @@ class _LoginPageState extends State<LoginPage>
     );
   }
 
-  Widget _buildSignIn(BuildContext context) {
+  Widget _buildSignIn(BuildContext context, _ViewModel model ) {
     return Container(
       padding: EdgeInsets.only(top: 23.0),
       child: Column(
@@ -331,7 +348,7 @@ class _LoginPageState extends State<LoginPage>
                             fontFamily: "WorkSansBold"),
                       ),
                     ),
-                    onPressed: () => showInSnackBar("Login button pressed")),
+                    onPressed: () =>   model.onLogin(User(username: 'elmi', password: 'elmi'))),
               ),
             ],
           ),
@@ -664,5 +681,35 @@ class _LoginPageState extends State<LoginPage>
     setState(() {
       _obscureTextSignupConfirm = !_obscureTextSignupConfirm;
     });
+  }
+}
+
+
+class _ViewModel {
+  final User user;
+  final Function(User) onLogin;
+  final Function() onLogout;
+
+
+  _ViewModel({
+    this.user,
+    this.onLogin,
+    this.onLogout,
+  });
+
+  factory _ViewModel.create(Store<AppState> store) {
+    _onLogin(User body) {
+      print(body.username);
+      store.dispatch(LoginAction(body));
+    }
+
+    _onLogout(AuthKey item) {
+      store.dispatch(LogoutAction(item));
+    }
+
+    return _ViewModel(
+      user: store.state.user,
+      onLogin: _onLogin,
+    );
   }
 }
