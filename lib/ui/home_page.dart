@@ -4,6 +4,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:jhflutter/model/model.dart';
 import 'package:redux_dev_tools/redux_dev_tools.dart';
 import 'package:jhflutter/utils/ViewModel.dart';
+import 'package:jhflutter/ui/login_page.dart';
 class HomePage extends StatelessWidget {
   final DevToolsStore<AppState> store;
   HomePage(this.store);
@@ -78,7 +79,11 @@ class HomePage extends StatelessWidget {
               onTap: () {
                 // Update the state of the app
                 // ...
-                        Navigator.of(context).pushReplacementNamed(  "/signin");
+                  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => LoginPage(store)),
+  );
+                     //   Navigator.of(context).pushReplacementNamed(  "/signin");
                 // Then close the drawer
                // Navigator.pop(context);
               },
