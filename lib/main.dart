@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
           home: StoreBuilder<AppState>(
             onInit: (store) => store.dispatch(GetAuthAction()),
             builder: (BuildContext context, Store<AppState> store) =>
-                 Welcome(store),
+                 HomePage(store),
           ),
           routes: <String, WidgetBuilder>{
              "/signin": (BuildContext context) => new LoginPage(store),
