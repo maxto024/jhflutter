@@ -13,37 +13,50 @@ var url = "http://example.com/whatsit/create";
 List<Middleware<AppState>> appStateMiddleware([
   AppState state = const AppState(),
 ]) {
+  final loadAuth  = _getAuthFromPrefs(state);
   final login = _login(state);
   final logout = _logout(state);
   return [
     TypedMiddleware<AppState, LoginAction>(login),
     TypedMiddleware<AppState, LogoutAction>(logout),
+    TypedMiddleware<AppState, GetAuthAction>(loadAuth),
+
   ];
 }
 
 Middleware<AppState> _login(AppState state) {
   return (Store<AppState> store, action, NextDispatcher next) {
     next(action);
-    var authkey = loginApi(store.state);
-    store.dispatch(LoginSuccessAction(AuthKey(authkey: authkey.toString())));
+      loginApi(store.state).then((res)
+   { 
+     store.dispatch(LoginSuccessAction(res));
+      _saveAuthToPrefrences(res);
+   }
+ );
+
   };
 }
 
 Middleware<AppState> _logout(AppState state) {
   return (Store<AppState> store, action, NextDispatcher next) {
     next(action);
-
-    store.dispatch(LoginSuccessAction(state.authKey));
+    store.dispatch(LoginSuccessAction(state.auth));
   };
 }
 
-void saveToPrefs(AppState state) async {
-  SharedPreferences preferences = await SharedPreferences.getInstance();
-  // var string = json.encode(state.toJson());
-  //await preferences.setString('itemsState', string);
-}
+Middleware<AppState> _getAuthFromPrefs(AppState state) {
+  return (Store<AppState> store, action, NextDispatcher next) {
+    next(action);
 
-Future<String> loginApi(AppState state) async {
+    _loadAuthFromPrefs()
+        .then((state) { 
+          store.dispatch(LoadedAuthAction(state));
+          print('authkeyfromStored:${state.authkey}');
+          
+          });
+  };
+}
+Future<Auth> loginApi(AppState state) async {
   // SharedPreferences preferences = await SharedPreferences.getInstance();
   //var string = preferences.getString('itemsState');
 
@@ -55,10 +68,28 @@ Future<String> loginApi(AppState state) async {
     "Content-Type": "application/json"
   });
   print('response: ${response.body}');
+     var res = Auth.fromJson(jsonDecode(response.body));
+     print(res.authkey);
+    return res;
 
-  if (response.body != null) {
-    var json = jsonDecode(response.body);
-    return response.body;
+}
+
+
+
+void _saveAuthToPrefrences(Auth auth) async {
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  var string = json.encode(auth.toJson());
+  await preferences.setString('auth', string);
+}
+
+
+Future<Auth> _loadAuthFromPrefs() async {
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  var string = preferences.getString('auth');
+  if (string != null) {
+    Map map = json.decode(string);
+        print(Auth.fromJson(map).authkey);
+    return Auth.fromJson(map);
   }
-  return '';
+  return null;
 }

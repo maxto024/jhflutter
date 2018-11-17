@@ -19,7 +19,7 @@ class ViewModel {
     }
 
     _onLogout() {
-      final AuthKey key = AuthKey(authkey: '');
+      final Auth key = Auth(authkey: '');
       store.dispatch(LogoutAction(key));
     }
 

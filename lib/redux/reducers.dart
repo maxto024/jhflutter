@@ -6,7 +6,7 @@ import 'package:redux/redux.dart';
 AppState appStateReducer(AppState state, action) {
   return AppState(
     user: userReducer(state.user, action),
-    authKey: authReducer(state.authKey, action)
+    auth: authReducer(state.auth, action)
   );
 }
 
@@ -14,9 +14,10 @@ Reducer<User> userReducer = combineReducers<User>([
   TypedReducer<User, LoginAction>(loginReducer),
 ]);
 
-Reducer<AuthKey> authReducer = combineReducers<AuthKey>([
-  TypedReducer<AuthKey, LoginSuccessAction>(loginSuccess),
-  TypedReducer<AuthKey, LogoutAction>(logoutReducer),
+Reducer<Auth> authReducer = combineReducers<Auth>([
+  TypedReducer<Auth, LoginSuccessAction>(loginSuccess),
+  TypedReducer<Auth, LogoutAction>(logoutReducer),
+    TypedReducer<Auth, LoadedAuthAction>(lodedAuthReducer),
 ]);
 
 User loginReducer(User user, LoginAction action) {
@@ -24,11 +25,15 @@ User loginReducer(User user, LoginAction action) {
   return  User(username: action.user.username, password: action.user.password, rememberMe: action.user.rememberMe);
 }
 
-AuthKey loginSuccess(AuthKey items, LoginSuccessAction action) {
-  return AuthKey(authkey: action.authKey.authkey);
+Auth loginSuccess(Auth auth, LoginSuccessAction action) {
+  return Auth(authkey: action.authKey.authkey);
 }
 
-AuthKey logoutReducer(AuthKey authkey, LogoutAction action) {
-  return  AuthKey(authkey: '');
+Auth lodedAuthReducer(Auth auth , LoadedAuthAction action){
+  return action.auth;
+}
+
+Auth logoutReducer(Auth authkey, LogoutAction action) {
+  return  Auth(authkey: '');
 }
 

@@ -702,11 +702,6 @@ class _ViewModel {
       print(body.username);
       store.dispatch(LoginAction(body));
     }
-
-    _onLogout(AuthKey item) {
-      store.dispatch(LogoutAction(item));
-    }
-
     return _ViewModel(
       user: store.state.user,
       onLogin: _onLogin,

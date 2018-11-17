@@ -5,17 +5,23 @@ class LoginAction {
   LoginAction(this.user);
 }
 class LoginSuccessAction{
-  final AuthKey authKey;
+  final Auth authKey;
 
   LoginSuccessAction(this.authKey);
 
 }
 class LogoutAction {
-  final AuthKey authKey;
+  final Auth authKey;
   LogoutAction(this.authKey);
 }
 
 class LogoutSuccessAction {
-  final AuthKey authKey;
+  final Auth authKey;
   LogoutSuccessAction(this.authKey);
+}
+class GetAuthAction {
+}
+class LoadedAuthAction {
+  final Auth auth;
+  LoadedAuthAction(this.auth);
 }

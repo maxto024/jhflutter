@@ -22,31 +22,44 @@ class User {
         'password': password,
         'rememberMe': rememberMe,
       };
+  @override
+  String toString() {
+    return toJson().toString();
+  }
 }
 
-class AuthKey {
+class Auth {
   final String authkey;
-  AuthKey({this.authkey});
-  AuthKey copyWith({String authKey}) {
-    return AuthKey(authkey: authKey ?? this.authkey);
+  Auth({this.authkey});
+  Auth copyWith({String authKey}) {
+    return Auth(authkey: authKey ?? this.authkey);
   }
 
-  AuthKey.fromJson(Map json) : authkey = json['id_token'];
+  Auth.fromJson(Map json) : authkey = json['id_token'];
   Map toJson() => {
-        'authkey': authkey,
+        'id_token': authkey,
       };
+  @override
+  String toString() {
+    return toJson().toString();
+  }
 }
 
 class AppState {
   final User user;
-  final AuthKey authKey;
+  final Auth auth;
 
   const AppState({
     this.user,
-    this.authKey,
+    this.auth,
   });
 
   factory AppState.initialState() => AppState(
       user: User(username: '', password: '', rememberMe: false),
-      authKey: AuthKey(authkey: ''));
+      auth: Auth(authkey: ''));
+      
+  @override
+  String toString() {
+    return user.toJson().toString()+'\n' + auth.toJson().toString();
+  }
 }
