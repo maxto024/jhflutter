@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 
 class Colors {
-
   const Colors();
 
   static const Color loginGradientStart = const Color(0xFFfbab66);

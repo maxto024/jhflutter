@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
     );
     return Scaffold(
       backgroundColor: Colors.lightBlue,
-            appBar: AppBar(title: Text('LogIn')),
+      appBar: AppBar(title: Text('LogIn')),
       body: StoreConnector<AppState, ViewModel>(
         converter: (Store<AppState> store) => ViewModel.create(store),
         builder: (BuildContext context, ViewModel viewModel) => Center(
@@ -47,7 +47,6 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
       ),
-
     );
   }
 }

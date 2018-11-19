@@ -8,8 +8,6 @@ import 'package:jhflutter/redux/reducers.dart';
 import 'package:jhflutter/redux/middleware.dart';
 import 'package:jhflutter/redux/actions.dart';
 import 'package:redux_dev_tools/redux_dev_tools.dart';
-import 'package:jhflutter/ui/welcome.dart';
-
 
 void main() => runApp(new MyApp());
 
@@ -31,11 +29,11 @@ class MyApp extends StatelessWidget {
           home: StoreBuilder<AppState>(
             onInit: (store) => store.dispatch(GetAuthAction()),
             builder: (BuildContext context, Store<AppState> store) =>
-                 HomePage(store),
+                HomePage(store),
           ),
           routes: <String, WidgetBuilder>{
-             "/signin": (BuildContext context) => new LoginPage(store),
-             "/home": (BuildContext context) => new HomePage(store),
+            "/signin": (BuildContext context) => new LoginPage(store),
+            "/home": (BuildContext context) => new HomePage(store),
           },
         ));
   }

@@ -59,6 +59,7 @@ flutter:
       - assets/login_logo.png
       - assets/logo.png
       - assets/alucard.jpg
+      - assets/logo-jhipster.png
 
   fonts:
     - family: WorkSansSemiBold

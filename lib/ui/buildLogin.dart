@@ -140,7 +140,7 @@ class BuildLogin extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 10.0),
             child: FlatButton(
-                onPressed: () {},
+                onPressed: () => {},
                 child: Text(
                   "Forgot Password?",
                   style: TextStyle(

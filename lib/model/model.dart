@@ -57,9 +57,9 @@ class AppState {
   factory AppState.initialState() => AppState(
       user: User(username: '', password: '', rememberMe: false),
       auth: Auth(authkey: ''));
-      
+
   @override
   String toString() {
-    return user.toJson().toString()+'\n' + auth.toJson().toString();
+    return user.toJson().toString() + '\n' + auth.toJson().toString();
   }
 }

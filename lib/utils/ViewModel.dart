@@ -6,12 +6,8 @@ class ViewModel {
   final User user;
   final Function(User) onLogin;
   final Function() onLogout;
-
-  ViewModel({
-    this.user,
-    this.onLogin,
-    this.onLogout,
-  });
+  final Function() isLogged;
+  ViewModel({this.user, this.onLogin, this.onLogout, this.isLogged});
 
   factory ViewModel.create(Store<AppState> store) {
     _onLogin(User body) {
@@ -19,13 +15,19 @@ class ViewModel {
     }
 
     _onLogout() {
-      final Auth key = Auth(authkey: '');
-      store.dispatch(LogoutAction(key));
+      store.dispatch(LogoutAction());
+    }
+
+    bool _isLogged() {
+      print('what ${store.state.auth.authkey}');
+      return store.state.auth.authkey == null ? false : true;
     }
 
     return ViewModel(
       user: store.state.user,
       onLogin: _onLogin,
+      isLogged: _isLogged,
+      onLogout: _onLogout,
     );
   }
 }
